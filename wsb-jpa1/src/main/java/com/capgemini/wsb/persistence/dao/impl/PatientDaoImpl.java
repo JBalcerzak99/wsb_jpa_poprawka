@@ -28,8 +28,8 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     @Override
     public List<PatientEntity> findPatientsHavingTreatmentType(TreatmentType treatmentType) { // TODO - napisac query
 
-        String jpql = "SELECT p FROM PatientEntity p JOIN p.visits v JOIN v.treatment t " +
-                "WHERE t.type = :treatmentType";
+        String jpql = "SELECT DISTINCT p FROM PatientEntity p JOIN p.visits v JOIN v.medicalTreatments mt " +
+                "WHERE mt.type = :treatmentType";
         TypedQuery<PatientEntity> query = entityManager.createQuery(jpql, PatientEntity.class);
         query.setParameter("treatmentType", treatmentType);
         return query.getResultList();
@@ -38,7 +38,7 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     @Override
     public List<PatientEntity> findPatientsSharingSameLocationWithDoc(String firstName, String lastName) { // TODO - napisac query
 
-        String jpql = "SELECT DISTINCT p FROM PatientEntity p JOIN p.address pa, DoctorEntity d JOIN d.address da " +
+        String jpql = "SELECT DISTINCT p FROM PatientEntity p JOIN p.addresses pa, DoctorEntity d JOIN d.addresses da " +
                 "WHERE d.firstName = :firstName AND d.lastName = :lastName AND pa = da";
         TypedQuery<PatientEntity> query = entityManager.createQuery(jpql, PatientEntity.class);
         query.setParameter("firstName", firstName);
@@ -49,8 +49,14 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     @Override
     public List<PatientEntity> findPatientsWithoutLocation() { // TODO - napisac query
 
-        String jpql = "SELECT p FROM PatientEntity p WHERE p.address IS NULL";
+        String jpql = "SELECT p FROM PatientEntity p WHERE p.addresses IS EMPTY";
         TypedQuery<PatientEntity> query = entityManager.createQuery(jpql, PatientEntity.class);
         return query.getResultList();
+    }
+    public void delete(Long id) {
+        PatientEntity patient = findOne(id);
+        if (patient != null) {
+            entityManager.remove(patient);
+        }
     }
 }

@@ -15,7 +15,7 @@ public class DoctorDaoImpl extends AbstractDao<DoctorEntity, Long> implements Do
     @Override
     public List<DoctorEntity> findBySpecialization(Specialization specialization) { // TODO - napisac query
 
-        String jpql = "SELECT d FROM DoctorEntity d WHERE d.specialty = :specialization";
+        String jpql = "SELECT d FROM DoctorEntity d WHERE d.specialization = :specialization";
         TypedQuery<DoctorEntity> query = entityManager.createQuery(jpql, DoctorEntity.class);
         query.setParameter("specialization", specialization);
         return query.getResultList();

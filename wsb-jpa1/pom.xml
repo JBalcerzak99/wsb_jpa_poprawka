@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.capgemini</groupId>
-	<artifactId>wsb-jpa1</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<artifactId>wsb-jpa1-70128</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>wsb-jpa1</name>
