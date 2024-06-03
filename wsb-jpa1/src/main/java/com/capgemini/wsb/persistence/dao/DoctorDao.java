@@ -24,6 +24,4 @@ public interface DoctorDao extends Dao<DoctorEntity, Long>
      * @return
      */
     long countNumOfVisitsWithPatient(String docFirstName, String docLastName, String pateientFirstName, String patientLastName);
-
-
 }
